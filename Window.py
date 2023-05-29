@@ -12,13 +12,17 @@ from PIL import Image
   
   def PillowScreenCap(self):
         with mss.mss() as sct:
-            sct_img = sct.grab(self.monitor)
+            monitor = {"top": 33,
+                        "left": 59,
+                        "width": 1772,
+                        "height": 1000}
+            sct_img = sct.grab(monitor)
             img = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw", "BGRX")
             px = img.load()
             if self.noGuessing:
                 self.searchStartClick(px)
             time.sleep(0.1)
-            sct_img = sct.grab(self.monitor)
+            sct_img = sct.grab(monitor)
             img = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw", "BGRX")
             px = img.load()
             img.show()
